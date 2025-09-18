@@ -14,9 +14,10 @@ def _synthesize_tips(weather: WeatherInfo, clothing: List[ClothingRecommendation
     else:
         tips.append("Mild weather; flexible itinerary works well.")
 
-    if any("rain" in weather.summary.lower() for _ in [0]):
+    ws = weather.summary.lower()
+    if "rain" in ws:
         tips.append("Carry a compact umbrella or waterproof jacket.")
-    if any("wind" in weather.summary.lower() for _ in [0]):
+    if "wind" in ws or "breezy" in ws:
         tips.append("A windbreaker may be useful due to breezy conditions.")
 
     if places:

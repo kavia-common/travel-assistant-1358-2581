@@ -1,7 +1,16 @@
 [flake8]
-exclude = .git,__pycache__,build,dist,venv
-select = E9,F
 max-line-length = 120
+extend-ignore = E203, W503
+exclude =
+    .git,
+    __pycache__,
+    interfaces,
+    .venv,
+    venv
 per-file-ignores =
-    __init__.py:F401
-max-complexity = 18
+    # Allow long HTML strings in demo page
+    src/api/main.py:E501
+    # Allow slightly long Pydantic field lines for clarity
+    src/api/models.py:E501
+    # Allow a couple of long lines in synthesized tips and normalization logic
+    src/api/services.py:E501

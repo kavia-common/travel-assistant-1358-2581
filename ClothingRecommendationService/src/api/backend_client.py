@@ -17,7 +17,11 @@ class BackendClient:
 
     def __init__(self, config: Optional[BackendConfig] = None) -> None:
         self.config = config or BackendConfig()
-        self._client = httpx.Client(base_url=self.config.base_url, timeout=10)
+        # A small connection pool and sane timeout for responsiveness
+        self._client = httpx.Client(
+            base_url=self.config.base_url,
+            timeout=httpx.Timeout(10.0, read=10.0, connect=5.0),
+        )
 
     def close(self) -> None:
         """Close the underlying HTTP client."""
